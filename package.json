@@ -1,11 +1,8 @@
 {
-  "name": "@fuze/lib",
+  "name": "@rsxemu/fuze-lib",
   "version": "1.0.0",
   "description": "Fuze Core Library",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rsxemu/fuze-lib.git"
@@ -13,5 +10,23 @@
   "bugs": {
     "url": "https://github.com/rsxemu/fuze-lib/issues"
   },
-  "homepage": "https://github.com/rsxemu/fuze-lib#readme"
+  "homepage": "https://github.com/rsxemu/fuze-lib#readme",
+  "private": true,
+  "type": "module",
+  "scripts": {
+      "build": "tsc",
+      "test": "jest"
+  },
+  "dependencies": {
+      "bigint-mod-arith": "^3.0.0",
+      "tsc-watch": "^4.4.0",
+      "typescript": "^4.3.2"
+  },
+  "devDependencies": {
+      "@types/jest": "^27.4.0",
+      "@types/node": "^15.14.3",
+      "cross-env": "^7.0.3",
+      "ts-jest": "^27.0.4",
+      "tslint": "^6.1.3"
+  }
 }

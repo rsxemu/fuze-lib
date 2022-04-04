@@ -1,4 +1,4 @@
-import { bytesToArray, toBinString, toHexString, uncomplement } from "@fuze-core/functions.js";
+import { bytesToArray, toBinString, toHexString, uncomplement } from "../Core/functions.js";
 
 export default class SuperBuffer {
     private buffer: Uint8Array;
