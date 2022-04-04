@@ -1,8 +1,7 @@
 {
   "name": "@rsxemu/fuze-lib",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fuze Core Library",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rsxemu/fuze-lib.git"
@@ -13,13 +12,17 @@
   "homepage": "https://github.com/rsxemu/fuze-lib#readme",
   "type": "module",
   "scripts": {
-      "build": "tsc",
+      "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+      "prepublish": "npm run build",
       "test": "jest"
   },
+  "license": "MIT",
+  "main": "./bin/cjs/index.js",
+  "module": "./bin/esm/index.js",
   "dependencies": {
       "bigint-mod-arith": "^3.0.0",
       "tsc-watch": "^4.4.0",
-      "typescript": "^4.3.2"
+      "typescript": "^4.3.5"
   },
   "devDependencies": {
       "@types/jest": "^27.4.0",
