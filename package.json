@@ -1,0 +1,17 @@
+{
+  "name": "@fuze/lib",
+  "version": "1.0.0",
+  "description": "Fuze Core Library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsxemu/fuze-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rsxemu/fuze-lib/issues"
+  },
+  "homepage": "https://github.com/rsxemu/fuze-lib#readme"
+}
