@@ -1,6 +1,6 @@
 {
   "name": "@rsxemu/fuze-lib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fuze Core Library",
   "main": "index.js",
   "repository": {
