@@ -1,2 +1,2 @@
-export * from './BitBuffer.js';
-export * from './SuperBuffer.js';
+export * from './BitBuffer';
+export * from './SuperBuffer';

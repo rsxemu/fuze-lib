@@ -1,19 +1,5 @@
-import pkg from 'ts-jest';
-const { pathsToModuleNameMapper } = pkg;
-
-import { readFile } from 'fs/promises';
-
-// import { compilerOptions } from './tsconfig.json';
-const options = JSON.parse(await readFile(new URL('./tsconfig.json', import.meta.url)));
-const compilerOptions = options.compilerOptions;
-
 export default {
     "preset": 'ts-jest',
-    "moduleNameMapper": pathsToModuleNameMapper(
-        compilerOptions.paths,
-        /* { prefix: '<rootDir>/' } */
-    ),
-
     "extensionsToTreatAsEsm": [".ts"],
     // "roots": [
     //     "<rootDir>/src"
