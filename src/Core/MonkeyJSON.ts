@@ -19,7 +19,7 @@ export function parse(text: string, reviver?: (this: any, key: string, value: an
     });
 }
 
-export default function monkeyBigInt() {
+export function monkeyBigInt() {
     JSON.parse = parse;
 
     (BigInt.prototype as any).toJSON = function () {
