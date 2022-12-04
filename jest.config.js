@@ -7,13 +7,16 @@ import { readFile } from 'fs/promises';
 const options = JSON.parse(await readFile(new URL('./tsconfig.json', import.meta.url)));
 const compilerOptions = options.compilerOptions;
 
-export default {
-    "preset": 'ts-jest',
+const mnm = compilerOptions.paths ? {
     "moduleNameMapper": pathsToModuleNameMapper(
         compilerOptions.paths,
         /* { prefix: '<rootDir>/' } */
-    ),
+    )
+} : {};
 
+export default {
+    ...mnm,
+    "preset": 'ts-jest',
     "extensionsToTreatAsEsm": [".ts"],
     // "roots": [
     //     "<rootDir>/src"
@@ -28,7 +31,7 @@ export default {
     //     "ts"
     // ],
     "testMatch": [
-        "**/__tests__/**/*.+(ts|tsx|js)",
+        "**/test/**/*.+(ts|tsx|js)",
         "**/?(*.)+(spec|test).+(ts|tsx|js)"
     ],
     "transform": {

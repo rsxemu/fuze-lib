@@ -1,4 +1,4 @@
-export class BitBuffer {
+export default class BitBuffer {
     // TODO: bigger than 32 bit width
     private static BITMASKS = [
 		0n, 0x1n, 0x3n, 0x7n, 0xfn,

@@ -1,4 +1,4 @@
-import SuperBuffer, { DataOrder, DataTransformation } from "../IO/SuperBuffer"
+import SuperBuffer, { DataOrder, DataTransformation } from "../../src/IO/SuperBuffer"
 
 function assert(input: any, message?: string): asserts input {
     if (!input) throw new Error(message ?? 'FAILED ASSERTION');

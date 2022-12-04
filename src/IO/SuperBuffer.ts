@@ -1,6 +1,6 @@
 import { bytesToArray, toBinString, toHexString, uncomplement } from "../Core/functions.js";
 
-export class SuperBuffer {
+export default class SuperBuffer {
     private buffer: Uint8Array;
     private idx: number;
 

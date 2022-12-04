@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "rootDir": "./src",
+        "baseUrl": "./src",
         "outDir": "./bin/esm",
         "allowJs": true,
         "checkJs": true,

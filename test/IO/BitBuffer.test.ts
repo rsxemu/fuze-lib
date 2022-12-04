@@ -1,5 +1,5 @@
-import { toBinString } from "../Core/functions";
-import BitBuffer from "../IO/BitBuffer";
+import { toBinString } from "../../src/Core/functions";
+import BitBuffer from "../../src/IO/BitBuffer";
 
 function assert(input: any, message?: string): asserts input {
     if (!input) throw new Error(message ?? 'FAILED ASSERTION');
