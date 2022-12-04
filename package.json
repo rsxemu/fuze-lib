@@ -23,7 +23,7 @@
   "main": "./bin/cjs/index.js",
   "module": "./bin/esm/index.js",
   "dependencies": {
-      "bigint-mod-arith": "^3.0.0"
+      "bigint-mod-arith": "^3.1.2"
   },
   "devDependencies": {
       "@types/jest": "^27.4.0",
