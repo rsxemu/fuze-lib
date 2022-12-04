@@ -1,6 +1,6 @@
 {
   "name": "@rsxemu/fuze-lib",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Fuze Core Library",
   "repository": {
     "type": "git",
@@ -12,9 +12,9 @@
   "homepage": "https://github.com/rsxemu/fuze-lib#readme",
   "type": "module",
   "scripts": {
-      "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
-      "prepublish": "npm run build",
-      "test": "jest"
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublish": "npm run build",
+    "test": "jest"
   },
   "files": [
     "bin/"
@@ -23,15 +23,15 @@
   "main": "./bin/cjs/index.js",
   "module": "./bin/esm/index.js",
   "dependencies": {
-      "bigint-mod-arith": "^3.1.2"
+    "bigint-mod-arith": "^3.1.2"
   },
   "devDependencies": {
-      "@types/jest": "^27.4.0",
-      "@types/node": "^15.14.3",
-      "cross-env": "^7.0.3",
-      "typescript": "^4.3.5",
-      "ts-jest": "^27.0.4",
-      "tslint": "^6.1.3",
-      "tsc-watch": "^4.4.0"
+    "@types/jest": "^27.4.0",
+    "@types/node": "^15.14.3",
+    "cross-env": "^7.0.3",
+    "typescript": "^4.3.5",
+    "ts-jest": "^27.0.4",
+    "tslint": "^6.1.3",
+    "tsc-watch": "^4.4.0"
   }
 }
