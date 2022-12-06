@@ -77,7 +77,7 @@ function testSuccessfulWrite(sb: SuperBuffer, value: number | bigint, size: numb
 
     let readRetVal = sb.get(size, signed, order, readTransform); // attempt to read the written value
     
-    console.log(DataOrder[order], DataTransformation[transform], indexWriteStart, '->', indexWriteEnd, "\t", value, "\t", putRetVal, "\t", readRetVal);
+    //console.log(DataOrder[order], DataTransformation[transform], indexWriteStart, '->', indexWriteEnd, "\t", value, "\t", putRetVal, "\t", readRetVal);
 
     assert(readRetVal == value, 'loose value inequality');
     assert(indexWriteEnd - indexWriteStart == size, 'width of data type mismatched');
@@ -100,12 +100,12 @@ function testTransforms() {
 }
 
 test('oogabooga', () => {
-    console.log('testTransforms');
+    //console.log('testTransforms');
     testTransforms();
 
-    console.log('basicReadTest');
+    //console.log('basicReadTest');
     basicReadTest();
 
-    console.log('basicWriteTest');
+    //console.log('basicWriteTest');
     basicWriteTest();
 });
