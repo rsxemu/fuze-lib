@@ -1,4 +1,3 @@
-import { toBinString } from "../../src/Core/functions";
 import BitBuffer from "../../src/IO/BitBuffer";
 
 function assert(input: any, message?: string): asserts input {
@@ -34,7 +33,7 @@ function basicWriteTest() {
     //console.log(b.length);
     //console.log(b.toString());
     b.flip();
-    console.log(toBinString(b.buffer()));
+    //console.log(toBinString(b.buffer()));
 
     // read values
     for (let i = 0; i < test.length; i++) {
@@ -43,10 +42,5 @@ function basicWriteTest() {
     }
 }
 
-test('oogabooga3', () => {
-    console.log('basicReadTest');
-    basicReadTest();
-
-    console.log('basicWriteTest');
-    basicWriteTest();
-});
+test('Basic Read Test', basicReadTest);
+test('Basic Write Test', basicWriteTest);

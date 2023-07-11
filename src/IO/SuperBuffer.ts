@@ -235,11 +235,47 @@ export default class SuperBuffer {
         return this.ubyte() > 0;
     }
 
-    public string(terminator: number = 10): string {
-        let off = this.idx;
-        while (this.ubyte() !== terminator);
-        const strData = this.copy(this.idx - off - 1, off);
-        return String.fromCharCode.apply(null, strData);
+    public string(terminator: number = LineTerminator.LF, trimLastLineWithoutTerminator: boolean = false): string {
+        const startOffset = this.idx; // starting offset
+        const totalSize = this.size(); // maximum boundary
+        let size = 0;
+
+        for (; startOffset + size < totalSize + 1; size++) {
+            const cb = this.buffer[startOffset + size];
+
+            // if the array index returns null or undefined
+            // or if the safe terminator and null byte (0)
+            if (cb === undefined || cb === null || (trimLastLineWithoutTerminator && cb === 0)) {
+                if (trimLastLineWithoutTerminator) {
+                    break;
+                }
+
+                return undefined;
+            }
+            
+            // if terminated
+            if (cb === terminator) {
+                break;
+            }
+        }
+
+        const strData = this.copy(size, startOffset); // copy within terminator
+        this.idx += size + 1; // advance past terminator
+        return String.fromCharCode.apply(null, strData); // interpret as String
+    }
+
+    public * strings(count: number = 1, terminator: number = LineTerminator.LF, trimLastLineWithoutTerminator: boolean = false): Generator<string, void, unknown> {
+        let remaining = count;
+
+        do {
+            const str = this.string(terminator, trimLastLineWithoutTerminator);
+
+            if (str === null || str === undefined) {
+                return;
+            }
+
+            yield str;
+        } while (this.remaining() > 0 && --remaining > 0)
     }
 
     public static transform(value: bigint, transform: DataTransformation): bigint {
@@ -288,4 +324,10 @@ export enum DataSize {
     TRIPLE = 3,
     INT = 4,
     LONG = 8
+}
+
+export enum LineTerminator {
+    CR = 0x0D,
+    LF = 0x0A,
+    NULL = 0x0
 }

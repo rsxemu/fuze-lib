@@ -1,4 +1,4 @@
-import SuperBuffer, { DataOrder, DataTransformation } from "../../src/IO/SuperBuffer"
+import SuperBuffer, { DataOrder, DataTransformation, LineTerminator } from "../../src/IO/SuperBuffer"
 
 function assert(input: any, message?: string): asserts input {
     if (!input) throw new Error(message ?? 'FAILED ASSERTION');
@@ -8,8 +8,8 @@ function basicReadTest() {
     let test = new Uint8Array([ 14, 0 ]);
     let buff = new SuperBuffer(test);
     
-    console.log(buff.get());
-    console.log(buff.get());
+    assert(buff.get() === 14n, '14n');
+    assert(buff.get() == 0n, '0n');
 }
 
 function basicWriteTest() {
@@ -88,24 +88,78 @@ function testTransforms() {
 
     const afterAdd = SuperBuffer.transform(value, DataTransformation.ADD);
     const validateSubtract = SuperBuffer.transform(afterAdd, DataTransformation.ADD);
-    console.log('value:', value, 'after:', afterAdd, 'reverse:', validateSubtract);
+    assert(value === 180n, 'Value is 180n');
+    assert(afterAdd === 52n, 'After is 52n');
+    assert(validateSubtract === 180n, 'Reverse is 180n');
 
     const afterSubtract = SuperBuffer.transform(value, DataTransformation.SUBTRACT);
     const validateAdd = SuperBuffer.transform(afterSubtract, DataTransformation.SUBTRACT);
-    console.log('value:', value, 'after:', afterSubtract, 'reverse:', validateAdd);
+    assert(value === 180n, 'Value is 180n');
+    assert(afterSubtract === 204n, 'After is 204n');
+    assert(validateAdd === 180n, 'Reverse is 180n');
 
     const afterNegate = SuperBuffer.transform(value, DataTransformation.NEGATE);
     const validateNegate = SuperBuffer.transform(afterNegate, DataTransformation.NEGATE);
-    console.log('value:', value, 'after:', afterNegate, 'reverse:', validateNegate);
+    assert(value === 180n, 'Value is 180n');
+    assert(afterNegate === 76n, 'After is 76n');
+    assert(validateNegate === 180n, 'Reverse is 180n');
 }
 
-test('oogabooga', () => {
-    //console.log('testTransforms');
-    testTransforms();
+test('Transforms', testTransforms);
+test('Basic Read', basicReadTest);
+test('Basic Write', basicWriteTest);
 
-    //console.log('basicReadTest');
-    basicReadTest();
+test('String LF', () => {
+    const test = 'oogabooga';
+    const sb = new SuperBuffer(new Uint8Array(64));
+    sb.putString(test);
+    sb.seek(0);
+    const testAgainst = sb.string();
+    assert(test == testAgainst, 'Test strings match');
+})
 
-    //console.log('basicWriteTest');
-    basicWriteTest();
-});
+test('Strings NULL', () => {
+    const strs = ['hello', 'world'];
+    const sb = new SuperBuffer(new Uint8Array(64));
+    strs.forEach(str => sb.putString(str, LineTerminator.NULL));
+    sb.seek(0);
+    strs.forEach(str => assert(str == sb.string(LineTerminator.NULL), 'Test ' + str + ' matches'));
+})
+
+test('Strings LF No Terminator', () => {
+    const strs = ['hello', 'world'];
+    const sb = new SuperBuffer(new Uint8Array(16));
+    strs.forEach(str => sb.putString(str));
+    sb.seek(0);
+    strs.forEach(str => assert(str == sb.string(), 'Test ' + str + ' matches'));
+
+    sb.seek(sb.index() - 1);
+    sb.put(0); // bad terminator
+    sb.seek(0);
+    
+    const sm = sb.strings(2);
+    strs.forEach(str => {
+        const n = sm.next();
+        const cmp = n.value;
+        assert(str == cmp || (str == strs[strs.length - 1] && cmp === undefined), 'Test ' + str + ' matches')
+    });
+})
+
+test('Strings LF Parsed with Safe Terminator', () => {
+    const strs = ['hello', 'world'];
+    const sb = new SuperBuffer(new Uint8Array(16));
+    strs.forEach(str => sb.putString(str));
+    sb.seek(0);
+    strs.forEach(str => assert(str == sb.string(), 'Test ' + str + ' matches'));
+
+    sb.seek(sb.index() - 1);
+    sb.put(0); // bad terminator
+    sb.seek(0);
+    
+    const sm = sb.strings(2, LineTerminator.LF, true);
+    strs.forEach(str => {
+        const n = sm.next();
+        const cmp: string = (<string>n.value ?? '').trim();
+        assert(str == cmp, 'Test ' + str + ' matches');
+    });
+})
