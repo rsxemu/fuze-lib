@@ -1,6 +1,6 @@
 {
   "name": "@rsxemu/fuze-lib",
-  "version": "1.0.10-dev",
+  "version": "1.0.11-dev",
   "description": "Fuze Core Library",
   "repository": {
     "type": "git",
@@ -22,10 +22,7 @@
   "license": "MIT",
   "main": "./bin/cjs/index.js",
   "module": "./bin/esm/index.js",
-  "dependencies": {
-    "better-bigint": "^0.0.1",
-    "bigint-mod-arith": "^3.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "@types/node": "^15.14.3",

@@ -3,4 +3,3 @@ export { default as SuperBuffer, DataOrder, DataSize, DataTransformation } from 
 export * from './Core/functions.js';
 export { colors, genColorMap } from './Graphics/ColorMap.js';
 export { default as adjustBrightness } from './Graphics/AdjustBrightness.js';
-export * from './Core/MonkeyJSON.js';
